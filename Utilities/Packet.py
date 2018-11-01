@@ -111,18 +111,18 @@ class Packet(object):
             for packet in packets:
                 if udpAddr is None:
                     network.transport.write(packet)
-                    network.logger.new_message("[" + network.ip + ":" + str(network.port) + ']--> ' + repr(packet), 3)
+                    network.logger.notification("[" + network.ip + ":" + str(network.port) + ']--> ' + repr(packet), 3)
                 else:
                     network.transport.write(packet, udpAddr)
-                    network.logger.new_message("[" + udpAddr[0] + ":" + str(udpAddr[1]) + ']--> ' + repr(packet), 3)
+                    network.logger.notification("[" + udpAddr[0] + ":" + str(udpAddr[1]) + ']--> ' + repr(packet), 3)
 
         else:
             if udpAddr is None:
                 network.transport.write(packets[0])
-                network.logger.new_message("[" + network.ip + ":" + str(network.port) + ']--> ' + repr(packets[0]), 3)
+                network.logger.notification("[" + network.ip + ":" + str(network.port) + ']--> ' + repr(packets[0]), 3)
             else:
                 network.transport.write(packets[0], udpAddr)
-                network.logger.new_message("[" + udpAddr[0] + ":" + str(udpAddr[1]) + ']--> ' + repr(packets[0]), 3)
+                network.logger.notification("[" + udpAddr[0] + ":" + str(udpAddr[1]) + ']--> ' + repr(packets[0]), 3)
 
     def create(self):
         newPacket = ConfigParser()
