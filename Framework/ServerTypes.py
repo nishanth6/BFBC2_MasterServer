@@ -1,0 +1,2 @@
+CLIENT = 1
+SERVER = 2
