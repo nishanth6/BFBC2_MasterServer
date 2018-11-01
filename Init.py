@@ -7,6 +7,7 @@ from Database import Database
 from Framework.ErrorCodes import ERROR_FAILED_TO_LOAD_MODULES, ERROR_FAILED_TO_MAKE_SSL_CONTEXT, \
     ERROR_FAILED_TO_INITIALIZE_DATABASE, ERROR_FAILED_TO_BIND_PORT, ERROR_IP_IS_DEFAULT
 from Framework.ServerTypes import CLIENT, SERVER
+from Network import Plasma, Theater, Http
 from Logger import Log, start_log
 
 try:
@@ -69,8 +70,8 @@ def MainApp():
         os._exit(ERROR_FAILED_TO_MAKE_SSL_CONTEXT)
 
     try:
-        factory = Factory()
-        factory.protocol = PlasmaClient.HANDLER
+        factory = ServerFactory(CLIENT)
+        factory.protocol = Plasma.HANDLER
         reactor.listenSSL(plasma_client_port, factory, SSLContext)
         Log("PlasmaClient").notification("Created TCP Socket (now listening on port " + str(plasma_client_port) + ")",
                                          1)
@@ -81,8 +82,8 @@ def MainApp():
         os._exit(ERROR_FAILED_TO_BIND_PORT)
 
     try:
-        factory = Factory()
-        factory.protocol = PlasmaServer.HANDLER
+        factory = ServerFactory(SERVER)
+        factory.protocol = Plasma.HANDLER
         reactor.listenSSL(plasma_server_port, factory, SSLContext)
         Log("PlasmaServer").notification("Created TCP Socket (now listening on port " + str(plasma_server_port) + ")",
                                          1)
@@ -93,8 +94,8 @@ def MainApp():
         os._exit(ERROR_FAILED_TO_BIND_PORT)
 
     try:
-        factoryTCP = Factory()
-        factoryTCP.protocol = TheaterClient.TCPHandler
+        factoryTCP = ServerFactory(CLIENT)
+        factoryTCP.protocol = Theater.TCPHandler
         reactor.listenTCP(theater_client_port, factoryTCP)
         Log("TheaterClient").notification("Created TCP Socket (now listening on port " + str(theater_client_port) + ")",
                                           1)
@@ -108,8 +109,8 @@ def MainApp():
         os._exit(ERROR_FAILED_TO_BIND_PORT)
 
     try:
-        factoryTCP = Factory()
-        factoryTCP.protocol = TheaterServer.TCPHandler
+        factoryTCP = ServerFactory(SERVER)
+        factoryTCP.protocol = Theater.TCPHandler
         reactor.listenTCP(theater_server_port, factoryTCP)
         Log("TheaterServer").notification("Created TCP Socket (now listening on port " + str(theater_server_port) + ")",
                                           1)
@@ -124,8 +125,8 @@ def MainApp():
 
     if enable_http:
         try:
-        site = Site(WebServer.Handler())
-        reactor.listenTCP(http_server_port, site)
+            site = Site(Http.Handler())
+            reactor.listenTCP(80, site)
             Log("WebServer").notification("Created TCP Socket (now listening on port 80)", 1)
         except Exception as BindError:
             Log("Init").error("Fatal Error! Cannot bind socket to port: 80"

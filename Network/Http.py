@@ -3,8 +3,7 @@ from twisted.web.resource import Resource
 from Globals import Clients
 from Logger import Log
 
-logger = Log("WebServer", "\033[36m")
-logger_err = Log("WebServer", "\033[36;41m")
+logger = Log("WebServer")
 
 
 class Handler(Resource):
@@ -13,7 +12,7 @@ class Handler(Resource):
     def render_GET(self, request):
         uri = request.uri
 
-        logger.new_message("Got HTTP GET request: " + uri, 2)
+        logger.notification("Got HTTP GET request: " + uri, 3)
 
         if uri == "/easo/editorial/BF/2010/BFBC2/config/PC/game.xml":
             with open('Data/game.xml', 'r') as gamexml:
@@ -31,7 +30,4 @@ class Handler(Resource):
                     response = '<?xml version="1.0" encoding="UTF-8"?>\n<LOCKER error="0" game="/eagames/bfbc2" maxBytes="2867200" maxFiles="10" numBytes="0" numFiles="0" ownr="' + str(client.personaID) + '" pers="' + str(client.personaName) + '"/>'
                     return response
         else:
-            logger_err.new_message("Unknown GET: " + request.uri, 2)
-
-    def render_POST(self, request):
-        logger_err.new_message("Unknown POST: " + request.uri, 2)
+            logger.warning("Unknown GET: " + request.uri, 2)
