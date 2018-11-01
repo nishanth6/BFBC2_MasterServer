@@ -1,0 +1,37 @@
+{
+  "console": {
+    "use_colors": true // Display text in the console in color
+  },
+
+  "database": {
+    "file_path": "Data/Database.db" // Path to the database file (or where you want to be created) (by default it creates database in Data/ folder)
+  },
+
+  "debug": {
+    "create_log": true, // Create a log file
+    "log_timestamp": false, // Put a timestamp in the name of the logfile
+    "file_log_level": 3, // Message level (all Notifications up to this level will be written in the logfile), ranges from '0' to '3'
+    "console_log_level": 3 // Message level (all Notifications up to this level will be written in the console), ranges from '0' to '3'
+  },
+
+  "emulator": {
+    "emulator_ip": "127.0.0.1", // IP the emulator runs on (so connection information can be sent over the packets)
+    "plasma_client_port": 18390, // Port the emulator is listening for Plasma packets from the Client
+    "plasma_server_port": 19021, // Port the emulator is listening for Plasma packets from the Server
+    "theater_client_port": 18395, // Port the emulator is listening for Theater packets from the Client (also changes the port on the Client side)
+    "theater_server_port": 19026, // Port the emulator is listening for Theater packets from the Server
+    "enable_http": true // Listen and respond to http requests from the client
+  },
+
+  "players": {
+    "new_players_are_veterans": false, // All new registered players are Veterans (M1 access)
+    "new_players_have_premium": false, // All new registered have the Premium Edition (some game items are pre-unlocked)
+    "new_players_have_specact": false, // All new registered have access to SPECACT kits
+    "new_players_have_vietnam": false // All new registered have the Vietnam DLC
+  },
+
+  "SSL": {
+    "cert_file_path": "SSL/master.crt", // Path to certificate file
+    "priv_key_path": "SSL/private.key" // Path to private key file
+  }
+}
