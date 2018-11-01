@@ -10,7 +10,11 @@ class Packet(object):
         self.packet_data = packet_data
 
     def generateChecksum(self, packet_id, PacketCount):
-        PacketID = self.generatePacketID(packet_id + PacketCount)
+        if packet_id == "ferr":
+            PacketID = "ferr"
+        else:
+            PacketID = self.generatePacketID(packet_id + PacketCount)
+
         PacketLength = self.generatePacketLength()
 
         return PacketID + PacketLength
