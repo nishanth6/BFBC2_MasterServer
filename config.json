@@ -11,7 +11,7 @@
     "create_log": true, // Create a log file
     "log_timestamp": false, // Put a timestamp in the name of the logfile
     "file_log_level": 3, // Message level (all Notifications up to this level will be written in the logfile), ranges from '0' to '3'
-    "console_log_level": 3 // Message level (all Notifications up to this level will be written in the console), ranges from '0' to '3'
+    "console_log_level": 1 // Message level (all Notifications up to this level will be written in the console), ranges from '0' to '3'
   },
 
   "emulator": {
